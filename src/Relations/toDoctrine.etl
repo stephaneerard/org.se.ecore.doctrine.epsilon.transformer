@@ -1,0 +1,13 @@
+
+
+rule Ecore_EReference2Doctrine_Relation
+transform i : ecore!EReference
+to o : doctrine!Relation
+{
+	var class = i.eContainingClass.equivalent();
+	
+	class.getRelationsContainer().relations.add(o);
+	o.name = i.name;
+	
+}
+

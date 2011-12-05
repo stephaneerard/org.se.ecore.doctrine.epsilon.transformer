@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ecore 2 Doctrine Model-to-Model Transformer
+Bundle-SymbolicName: org.se.ecore.doctrine.epsilon.transformer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.se.ecore.doctrine.epsilon.transformer.Activator
+Bundle-Vendor: Stéphane Erard
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.se.ecore.epsilon.operations;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

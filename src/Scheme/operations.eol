@@ -1,0 +1,156 @@
+import "../Ecore/operations.eol";
+
+//
+//				Root EPackage link to Scheme
+//
+operation ecore!EPackage getRootPackage() : ecore!EPackage{
+	if(self.eSuperPackage.isDefined()) return self;
+	return self.eSuperPackage.getRootPackage();
+}
+
+
+//
+//				Globals Container
+//
+operation doctrine!Scheme getGlobals() : doctrine!Globals {
+	return self.createGlobals().globals;
+}
+
+operation doctrine!Scheme createGlobals() : doctrine!Scheme {
+	if(not self.globals.isDefined()){
+		self.globals = doctrine!Globals.createInstance();
+	}
+	
+	return self;
+}
+
+
+//
+//				Default Connection for all Classes of Scheme
+//
+operation doctrine!Scheme setDefaultConnection(connection : doctrine!Connection) : doctrine!Scheme {
+	self.getGlobals().connection = connection;
+	
+	return self;
+}
+
+operation doctrine!Scheme setDefaultConnectionFromAnnotation(ePackage : ecore!EPackage) : doctrine!Scheme {
+	var connection = ePackage.getDetailValueOfAnnotation('doctrine:connection', 'name', null);
+
+	if(connection = null) return self;
+	else if(not connection.matches('')){
+		var connectionObject = doctrine!Connection.createInstance();
+		connectionObject.name = connection;
+		self.getConnectionsContainer().connections.add(connectionObject);
+		self.setDefaultConnection(connectionObject);
+	}
+	
+	return self;
+}
+
+//
+//				Default Package for all Classes of Scheme
+//
+operation doctrine!Scheme setDefaultPackage(package : doctrine!Package) : doctrine!Scheme {
+	self.getGlobals().package = connection;
+	
+	return self;
+}
+
+operation doctrine!Scheme setDefaultPackageFromAnnotation(ePackage : ecore!EPackage) : doctrine!Scheme {
+	var package = ePackage.getDetailValueOfAnnotation('doctrine:package', 'name', null);
+	
+	if(package = null) return;
+	else if(not package.matches('')){
+		var packageObject = doctrine!Package.selectOne(p|p.name.matches(package));
+		if(not packageObject.isTypeOf(doctrine!Package)){
+			packageObject = doctrine!Package.createInstance();
+		}
+		packageObject.name = package;
+		self.children.add(packageObject);
+		self.getGlobals().package = packageObject;
+	}
+	
+	return self;
+}
+
+operation doctrine!Scheme getDefaultPackage() : doctrine!AbstractContainer {
+	if(not self.getGlobals().package.isDefined()) return self;
+	return self.getGlobals().package;
+}
+
+//
+//				Scheme Connections Container
+//
+operation doctrine!Scheme getConnectionsContainer() : doctrine!Connections {
+	return self.createConnectionsContainer().connections;
+}
+
+operation doctrine!Scheme createConnectionsContainer() : doctrine!Scheme {
+	if(not self.connections.isDefined()){
+		self.connections = doctrine!Connections.createInstance();
+	}
+	
+	return self;
+}
+
+
+//
+//				Default Package for all Classes of Scheme
+//
+operation doctrine!Scheme setDefaultPackage(package : doctrine!Package) : doctrine!Scheme {
+	self.getGlobals().package = package;
+	
+	return self;
+}
+
+//
+//				Default Behaviors for all Classes of Scheme
+//
+operation doctrine!Scheme getDefaultBehaviorsContainer() : doctrine!Behaviors {
+	return self.createDefaultBehaviorsContainer().getGlobals().behaviors;
+}
+
+operation doctrine!Scheme createDefaultBehaviorsContainer() : doctrine!Scheme {
+	if(not self.getGlobals().behaviors.isDefined()){
+		self.getGlobals().behaviors = doctrine!Behaviors.createInstance();
+	}
+	
+	return self;
+}
+
+operation doctrine!Scheme addDefaultBehavior(behavior : String) : doctrine!Scheme {
+	var behaviorObject = doctrine!Behavior.createInstance();
+	behaviorObject.name = behavior;
+	self.getDefaultBehaviorsContainer().behaviors.add(behaviorObject);
+	
+	return self;
+}
+
+//
+//				Default Options of Scheme
+//
+operation doctrine!Scheme addOption(name : String, value : String) : doctrine!Scheme {
+	var option = doctrine!Option.createInstance();
+	option.name = name;
+	option.value = value;
+	
+	self.getGlobals().options.add(option);
+	
+	return self;
+}
+
+//
+//				Connections defined within the Scheme
+//
+operation doctrine!Scheme getConnectionsContainer() : doctrine!Connections{
+	return self.createConnectionsContainer().connections;
+}
+
+operation doctrine!Scheme createConnectionsContainer() : doctrine!Scheme {
+	if(not self.connections.isDefined()){
+		self.connections = doctrine!Connections.createInstance();
+	}
+	
+	return self;
+}

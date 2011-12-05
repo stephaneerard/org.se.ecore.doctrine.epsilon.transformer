@@ -1,0 +1,4 @@
+operation String toBoolean(`default` : Boolean) {
+	if(self.matches('true') or self.matches('on')) return true;
+	if(self.matches('false') or self.matches('off')) return false;
+}

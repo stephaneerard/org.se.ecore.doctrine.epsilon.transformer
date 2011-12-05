@@ -1,0 +1,20 @@
+
+rule Ecore_EPackage2Doctrine_Package
+transform i : ecore!EPackage
+to o : doctrine!Package
+{
+	guard: i.eSuperPackage.isDefined() and i.eSubPackages.size() == 0
+	
+	o.name = i.name;
+	i.eSuperPackage.getRootPackage().equivalent().packages.add(o);
+}
+
+rule Ecore_EPackage2Doctrine_Package
+transform i : ecore!EPackage
+to o : doctrine!Package
+{
+	guard: i.eSuperPackage.isDefined()
+	
+	o.name = i.name;
+	o.parent = i.eSuperPackage.equivalent();
+}

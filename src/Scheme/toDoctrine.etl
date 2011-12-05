@@ -1,0 +1,13 @@
+
+rule Ecore_EPackage2Doctrine_Scheme
+transform i : ecore!EPackage
+to o : doctrine!Scheme
+{
+	guard: not i.eSuperPackage.isDefined()
+	
+	o.name = i.name;
+	
+	o.setDefaultConnectionFromAnnotation(i);
+	o.setDefaultPackageFromAnnotation(i);
+	
+}

@@ -1,0 +1,133 @@
+//
+//				Package
+//
+operation doctrine!Class setPackage(eClass : ecore!EClass) : doctrine!Class {
+	var package = eClass.ePackage.equivalent();
+	if(package.isTypeOf(doctrine!Scheme)){
+		package = package.getDefaultPackage();
+	}
+	self.package = package;
+	
+	return self;
+}
+
+//
+//				Behaviors Container
+//
+operation doctrine!Class getBehaviorsContainer() : doctrine!Behaviors {
+		return self.createBehaviorsContainers().behaviors;
+}
+	
+operation doctrine!Class createBehaviorsContainer() : doctrine!Class {
+	if(not self.behaviors.isDefined()){
+		self.behaviors = doctrine!Behaviors.createInstance();
+	}
+	
+	return self;
+}
+
+//
+//				Columns Container
+//
+operation doctrine!Class getColumnsContainer() : doctrine!Columns {
+	return self.createColumnsContainer().columns;
+}
+
+operation doctrine!Class createColumnsContainer() : doctrine!Class {
+	if(not self.columns.isDefined()){
+		self.columns = doctrine!Columns.createInstance();
+	}
+	
+	return self;
+}
+
+//
+//				Relations Container
+//
+operation doctrine!Class getRelationsContainer() : doctrine!Relations {
+	return self.createRelationsContainer().relations;
+}
+
+operation doctrine!Class createRelationsContainer() : doctrine!Class {
+	if(not self.relations.isDefined()){
+		self.relations = doctrine!Relations.createInstance();
+	}
+	
+	return self;
+}
+
+//
+//				Inheritance Container
+//
+operation doctrine!Class getInheritanceContainer() : doctrine!Inheritance {
+	return self.createInheritanceContainer().inheritance;
+}
+
+operation doctrine!Class createInheritanceContainer() : doctrine!Class {
+	if(not self.inheritance.isDefined()){
+		self.inheritance = doctrine!Inheritance.createInstance();
+	}
+	
+	return self;
+}
+
+//
+//				Indexes Container
+//
+operation doctrine!Class getIndexesContainer() : doctrine!Indexes {
+	return self.createInheritanceContainer().inheritance;
+}
+
+operation doctrine!Class createIndexesContainer() : doctrine!Class {
+	if(not self.indexes.isDefined()){
+		self.indexes = doctrine!Indexes.createInstance();
+	}
+	
+	return self;
+}
+
+//
+//				Checks Container
+//
+operation doctrine!Class getChecksContainer() : doctrine!Checks {
+	return self.createChecksContainer().inheritance;
+}
+
+operation doctrine!Class createChecksContainer() : doctrine!Class {
+	if(not self.checks.isDefined()){
+		self.checks = doctrine!Checks.createInstance();
+	}
+	
+	return self;
+}
+
+//
+//				Options Container
+//
+operation doctrine!Class getOptionsContainer() : doctrine!Checks {
+	return self.createOptionsContainer().inheritance;
+}
+
+operation doctrine!Class createOptionsContainer() : doctrine!Class {
+	if(not self.options.isDefined()){
+		self.options = doctrine!Options.createInstance();
+	}
+	
+	return self;
+}
+
+
+//
+//				Listeners Container
+//
+operation doctrine!Class getListenersContainer() : doctrine!Checks {
+	return self.createListenersContainer().inheritance;
+}
+
+operation doctrine!Class createListenersContainer() : doctrine!Class {
+	if(not self.listeners.isDefined()){
+		self.listeners = doctrine!Listeners.createInstance();
+	}
+	
+	return self;
+}

@@ -1,0 +1,20 @@
+import "operations.eol";
+
+rule Ecore_EAttribute2Doctrine_Column
+transform i : ecore!EAttribute
+to o : doctrine!Column
+{
+	var class = i.eContainingClass.equivalent();
+	
+	class.getColumnsContainer().columns.add(o);
+	o.name = i.name;
+	
+	o
+	.setName(i.name)
+	.setPrimaryFromAnnotation(i)
+	.setUniquenessFromAnnotation(i)
+	.setNotNullFromAnnotation(i)
+	.setCollationFromAnnotation(i)
+	.setType(o.getTypeFromEAttribute(i))
+	;
+}

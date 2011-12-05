@@ -1,0 +1,90 @@
+import "../Ecore/operations.eol";
+import "../Commons/operations.eol";
+import "ColumnTypeFactories.eol";
+
+//
+//				Name
+//
+operation doctrine!Column setName(value : String) : doctrine!Column {
+	self.name = value;
+
+	return self;
+}
+
+operation doctrine!Column getName(): String {
+	return self.name;
+}
+
+//
+//				Type
+//
+operation doctrine!Column setType(type : doctrine!Type) : doctrine!Column {
+	self.type = type;
+
+	return self;
+}
+
+operation doctrine!Column getType(): String {
+	return self.type;
+}
+
+//
+//				Primary
+//
+operation doctrine!Column setPrimaryFromAnnotation(eAttribute : ecore!EAttribute) : doctrine!Column {
+	var value = eAttribute.getDetailValueOfAnnotation('doctrine:primary', 'value', "false").toBoolean(false);
+	self.setPrimary(value);
+
+	return self;
+}
+
+operation doctrine!Column setPrimary(value : Boolean) : doctrine!Column {
+	self.primary = value;
+	
+	return self;
+}
+
+//
+//				Uniqueness
+//
+operation doctrine!Column setUniquenessFromAnnotation(eAttribute : ecore!EAttribute) : doctrine!Column {
+	self.setPrimary(eAttribute.getDetailValueOfAnnotation('doctrine:unique', 'value', 'false').toBoolean(false));
+
+	return self;
+}
+
+operation doctrine!Column setUniqueness(value : Boolean) : doctrine!Column {
+	self.unique = value;
+	
+	return self;
+}
+
+//
+//				Not null
+//
+operation doctrine!Column setNotNullFromAnnotation(eAttribute : ecore!EAttribute) : doctrine!Column {
+	self.setNotNull(eAttribute.getDetailValueOfAnnotation('doctrine:notNull', 'value', 'false').toBoolean(false));
+
+	return self;
+}
+
+operation doctrine!Column setNotNull(value : Boolean) : doctrine!Column {
+	self.notNull = value;
+	
+	return self;
+}
+
+//
+//				Collation
+//
+operation doctrine!Column setCollationFromAnnotation(eAttribute : ecore!EAttribute) : doctrine!Column {
+	self.setCollation(eAttribute.getDetailValueOfAnnotation('doctrine:collation', 'value', 'false'));
+
+	return self;
+}
+
+operation doctrine!Column setCollation(value : Boolean) : doctrine!Column {
+	self.collation = value;
+	
+	return self;
+}

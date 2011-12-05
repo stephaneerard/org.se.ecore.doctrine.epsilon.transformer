@@ -1,0 +1,14 @@
+
+//////// TO EXPORT IN OPERATIONS PLUGIN
+operation ecore!EModelElement getDetailValueOfAnnotation(source : String, key : String, `default` : String) : String {
+	var annotation = self.eAnnotations.selectOne(a|a.source.matches(source));
+	if(annotation.isTypeOf(ecore!EAnnotation)){
+		var detail = annotation.details.selectOne(d|d.key.matches(key));
+		if(detail.isTypeOf(ecore!EStringToStringMapEntry)){
+			return detail.value;
+		}
+		return `default`;
+	}
+	return `default`;
+}
+

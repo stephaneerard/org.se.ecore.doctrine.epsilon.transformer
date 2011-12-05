@@ -1,0 +1,77 @@
+import "ColumnType.eol";
+
+//
+//				Factory method for ColumnType concrete classes
+//
+operation doctrine!Column getTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!ColumnType {
+	switch(eAttribute.eAttributeType.name){
+		case "EChar":
+		case "EString":
+			return self.createStringColumnTypeFromEAttribute(eAttribute);
+			break;
+		case "EBigInteger":
+		case "EInteger":
+			return self.createIntegerColumnTypeFromEAttribute(eAttribute);
+			break;
+		case "EBigDecimal":
+			return self.createDecimalColumnTypeFromEAttribute(eAttribute);
+			break;
+		case "EFloat":
+			return self.createFloatColumnTypeFromEAttribute(eAttribute);
+			break;
+		case "Timestamp":
+			return self.createTimestampColumnTypeFromEAttribute(eAttribute);
+			break;
+		case "DateTime":
+			return self.createDateTimeColumnTypeFromEAttribute(eAttribute);
+			break;
+		case "EDate":
+			return self.createDateColumnTypeFromEAttribute(eAttribute);
+			break;
+	}
+}
+operation doctrine!Column createStringColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!StringColumn {
+	var type = doctrine!StringColumn.createInstance();
+	type.setDefault(eAttribute.defaultValueLiteral);
+	
+	return type;
+}
+
+operation doctrine!Column createIntegerColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!IntegerColumn {
+	var type = doctrine!IntegerColumn.createInstance();
+	type.setDefault(eAttribute.defaultValueLiteral);
+	
+	return type;
+}
+
+operation doctrine!Column createDecimalColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!DecimalColumn {
+	var type = doctrine!DecimalColumn.createInstance();
+	type.setDefault(eAttribute.defaultValueLiteral);
+	
+	return type;
+}
+
+operation doctrine!Column createFloatColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!FloatColumn {
+	var type = doctrine!FloatColumn.createInstance();
+	type.setDefault(eAttribute.defaultValueLiteral);
+	
+	return type;
+}
+
+operation doctrine!Column createTimestampColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!TimestampColumn {
+	var type = doctrine!TimestampColumn.createInstance();
+	
+	return type;
+}
+
+operation doctrine!Column createDateTimeColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!TimestampColumn {
+	var type = doctrine!TimestampColumn.createInstance();
+	
+	return type;
+}
+
+operation doctrine!Column createDateColumnTypeFromEAttribute(eAttribute : ecore!EAttribute) : doctrine!DateColumn {
+	var type = doctrine!DateColumn.createInstance();
+	
+	return type;
+}

@@ -1,0 +1,9 @@
+
+rule Ecore_EClass2Doctrine_Class
+transform i : ecore!EClass
+to o : doctrine!Class
+{
+	o.name = i.name;
+	o.setPackage(i);
+	
+}

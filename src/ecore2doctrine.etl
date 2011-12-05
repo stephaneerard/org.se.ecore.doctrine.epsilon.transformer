@@ -1,0 +1,14 @@
+import "Ecore/operations.eol";
+import "Scheme/operations.eol";
+import "Package/operations.eol";
+import "Class/operations.eol";
+import "Columns/operations.eol";
+import "Relations/operations.eol";
+import "Behaviors/operations.eol";
+import "Connections/operations.eol";
+
+import "Scheme/toDoctrine.etl";
+import "Package/toDoctrine.etl";
+import "Class/toDoctrine.etl";
+import "Columns/toDoctrine.etl";
+import "Relations/toDoctrine.etl";
